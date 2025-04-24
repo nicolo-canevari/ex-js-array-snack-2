@@ -178,19 +178,25 @@ getBooks(testIds)
 
 // Verifica se c'è almeno un libro disponibile
 const areThereAvailableBooks = books.some(book => book.available);
+// `some` restituirà true se almeno un libro ha la proprietà `available`
 console.log("Ci sono libri disponibili:", areThereAvailableBooks);
 
 // Ordina l'array dei libri per prezzo (crescente)
 const booksByPrice = [...books].sort((a, b) => {
+
+    // Rimuove il simbolo dell'euro e converte la stringa in un numero
     const priceA = parseFloat(a.price.replace('€', ''));
     const priceB = parseFloat(b.price.replace('€', ''));
+    // Ordina i libri in base al prezzo
     return priceA - priceB;
+
 });
+
 console.log("Libri ordinati per prezzo:", booksByPrice);
 
 // Ordina l'array booksByPrice in base alla disponibilità
 booksByPrice.sort((a, b) => {
-    //   Prima i libri disponibili
+    // Se entrambi i libri hanno la stessa disponibilità, non cambia l'ordine
     if (a.available === b.available) return 0;
     // Mette il libro disponibile prima
     return a.available ? -1 : 1;
