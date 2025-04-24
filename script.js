@@ -138,8 +138,6 @@ console.log("Età media degli autori:", averageAge.toFixed(2));
 // URL base 
 const BASE_URL = 'https://boolean-spec-frontend.vercel.app/freetestapi';
 
-
-
 // Funzione che prende un array di ID e restituisce una Promise che risolve un array di libri 
 function getBooks(ids) {
 
@@ -174,3 +172,27 @@ getBooks(testIds)
         // Se almeno una fetch fallisce, errore!
         console.error("Errore nel recupero dei libri:", err.message);
     });
+
+
+// BONUS 6
+
+// Verifica se c'è almeno un libro disponibile
+const areThereAvailableBooks = books.some(book => book.available);
+console.log("Ci sono libri disponibili:", areThereAvailableBooks);
+
+// Ordina l'array dei libri per prezzo (crescente)
+const booksByPrice = [...books].sort((a, b) => {
+    const priceA = parseFloat(a.price.replace('€', ''));
+    const priceB = parseFloat(b.price.replace('€', ''));
+    return priceA - priceB;
+});
+console.log("Libri ordinati per prezzo:", booksByPrice);
+
+// Ordina l'array booksByPrice in base alla disponibilità
+booksByPrice.sort((a, b) => {
+    //   Prima i libri disponibili
+    if (a.available === b.available) return 0;
+    // Mette il libro disponibile prima
+    return a.available ? -1 : 1;
+});
+console.log("Libri ordinati per disponibilità e prezzo:", booksByPrice);
