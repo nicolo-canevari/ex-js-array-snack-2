@@ -116,3 +116,18 @@ if (areAuthorsAdults) {
 }
 
 console.log("Autori ordinati per età:", authors);
+
+
+// SNACK 4
+
+// Array con le età degli autori
+const ages = books.map(book => book.author.age);
+console.log("Età degli autori:", ages);
+
+// Somma delle età usando reduce
+const agesSum = ages.reduce((sum, age) => sum + age, 0);
+console.log("Somma delle età:", agesSum);
+
+// Calcolo dell’età media arrotondandola
+const averageAge = agesSum / ages.length;
+console.log("Età media degli autori:", averageAge.toFixed(2));
