@@ -131,3 +131,46 @@ console.log("Somma delle età:", agesSum);
 // Calcolo dell’età media arrotondandola
 const averageAge = agesSum / ages.length;
 console.log("Età media degli autori:", averageAge.toFixed(2));
+
+
+// BONUS 5
+
+// URL base 
+const BASE_URL = 'https://boolean-spec-frontend.vercel.app/freetestapi';
+
+
+
+// Funzione che prende un array di ID e restituisce una Promise che risolve un array di libri 
+function getBooks(ids) {
+
+    // Mappa ogni ID in una chiamata fetch, restituendo una Promise
+    const fetches = ids.map(id =>
+        fetch(`${BASE_URL}/books/${id}`)
+            .then(res => {
+                // Controlla se la risposta è andata a buon fine
+                if (!res.ok) {
+                    // Se c'è un errore HTTP, viene gestito qui
+                    throw new Error(`Errore nella fetch del libro con ID ${id}`);
+                }
+                // Altrimenti, converte la risposta in JSON
+                return res.json();
+            })
+    );
+
+    // Aspetta che tutte le Promises delle fetch siano completate
+    return Promise.all(fetches);
+}
+
+// TEST con gli ID specificati
+const testIds = [2, 13, 7, 21, 19];
+
+// Chiamata alla funzione con gestione del risultato
+getBooks(testIds)
+    .then(books => {
+        // Se tutte le fetch hanno avuto successo, stampa i libri
+        console.log("Libri trovati:", books);
+    })
+    .catch(err => {
+        // Se almeno una fetch fallisce, errore!
+        console.error("Errore nel recupero dei libri:", err.message);
+    });
