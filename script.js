@@ -202,3 +202,26 @@ booksByPrice.sort((a, b) => {
     return a.available ? -1 : 1;
 });
 console.log("Libri ordinati per disponibilità e prezzo:", booksByPrice);
+
+
+// BONUS 7
+
+// Usa reduce per contare quante volte ogni tag appare
+const tagCounts = books.reduce((acc, book) => {
+
+    // Per ogni libro, itera sui suoi tag
+    book.tags.forEach(tag => {
+
+        // Se il tag è già presente nell'oggetto acc ("accumulatore"), incrementa il conteggio
+        if (acc[tag]) {
+            acc[tag]++;
+        } else {
+            // Altrimenti, inizializza il conteggio del tag a 1
+            acc[tag] = 1;
+        }
+    });
+    // Ritorna l'oggetto aggiornato
+    return acc;
+}, {});
+
+console.log("Conteggio dei tag:", tagCounts);
